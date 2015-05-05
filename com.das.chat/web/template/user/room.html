@@ -1,0 +1,113 @@
+<div class="modal fade" id="roomModal" tabindex="-1" role="dialog" aria-labelledby="roomModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="roomModalLabel">Access Denied</h4>
+            </div>
+                <div class="modal-body">
+                    You have been banned from this room!
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="CommandManager.execute('endRoomSession')">Leave room</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <ul class="nav nav-pills" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="" data-target="#roomMessages" aria-controls="home" role="tab" data-toggle="pill" >Messages</a>
+                </li>
+                <li role="presentation">
+                    <a href="" data-target="#roomParticipants" aria-controls="publicRooms" role="tab" data-toggle="pill">Participants</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="tab-content">
+                
+                <!-- Messages Panel -->
+                <div role="tabpanel" class="tab-pane active" id="roomMessages" ng-controller="MessageListController">
+                    <h3>Messages</h3>
+                    <div ng-repeat="message in RoomSession.messages" ng-controller="MessageController">
+                        <div ng-class="{'alert':true, 'alert-info': isActive, 'alert-danger': isDeleted}">
+                            <div class="dropdown pull-right" ng-show="isAdmin">
+                                <span id="messageMenu" class="caret" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="messageMenu">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="" ng-show="isActive" ng-click="CommandManager.execute('removeMessage',message)">Remove Message</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span ng-show="isActive">
+                                <strong>{{ message.owner.login }}:</strong> {{ message.body }}
+                            </span>
+                            <span ng-show="isDeleted">
+                                <strong>This message has been deleted</strong>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning" ng-show="!isLoading && isEmpty === true">
+                        <strong>There are no messages in this room! be the first to post</strong>
+                    </div>
+                    <div class="alert alert-warning" ng-show="isLoading === true">
+                        <strong>Loading...</strong>
+                    </div>
+                </div>
+                
+                <!-- Participants Panel -->
+                <div role="tabpanel" class="tab-pane" id="roomParticipants">
+                    <h3>Participants</h3>
+                    <div class="list-group">
+                        <a href="" class="list-group-item list-group-item-success">
+                            <h4 class="list-group-item-heading">{{ Session.profile.login }}</h4>
+                            <p class="list-group-item-text">{{ RoomSession.useraccess.datetimeOfAccessStart }}</p>
+                        </a>
+                        <div ng-repeat="participant in RoomSession.participants"
+                           ng-show="participant.profile.id !== Session.profile.id"
+                           class="list-group-item">
+                            <div class="dropdown pull-right">
+                                <span id="participantMenu" class="caret" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-show="isPublicRoom && participant.profile.type !== 'admin'"></span>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="participantMenu">
+                                    <li role="presentation" ng-show="isUser">
+                                        <a role="menuitem" tabindex="-1" href="" ng-click="CommandManager.execute('startChatSession',participant.profile)">Start Chat</a>
+                                    </li>
+                                    <li role="presentation" ng-show="isAdmin">
+                                        <a role="menuitem" tabindex="-1" href="" ng-click="CommandManager.execute('addUserToBlackList',participant)">Add to black list</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h4 class="list-group-item-heading">
+                                {{ participant.profile.login }}
+                            </h4>
+
+                            <p class="list-group-item-text">{{ participant.datetimeOfAccessStart }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom" ng-show="isUser">
+    <div class="container-fluid">
+        <form class="navbar-form navbar-left">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="message" ng-model="message.body">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-success" ng-click="CommandManager.execute('postMessage',message)">Post</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>

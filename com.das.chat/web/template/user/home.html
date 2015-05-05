@@ -1,0 +1,106 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="page-header">
+                <h1>Home <small>home</small></h1>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pills Menu -->
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <ul class="nav nav-pills" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="" data-target="#home" aria-controls="home" role="tab" data-toggle="pill" >Home</a>
+                </li>
+                <li role="presentation">
+                    <a href="" data-target="#publicRooms" aria-controls="publicRooms" role="tab" data-toggle="pill" ng-click="Session.updateRooms()">Public Rooms</a>
+                </li>
+                <li role="presentation" ng-show="Session.chats.length !== 0">
+                    <a href="" data-target="#privateRooms" aria-controls="privateRooms" role="tab" data-toggle="pill" ng-click="Session.updateChats()">Private Rooms</a>
+                </li>
+                <li role="presentation" ng-show="Session.invitations.length !== 0">
+                    <a href="" data-target="#invitations" aria-controls="invitations" role="tab" data-toggle="pill" ng-click="Session.updateInvitations()">Invitations</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <br>
+    
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="tab-content">
+                
+                <!-- Home Panel -->
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <div class="jumbotron">
+                        <h1>Hello, {{ Session.profile.login }}!</h1>
+                        <p>Some information here</p>
+                    </div>
+                </div>
+                
+                <!-- Public Rooms Panel -->
+                <div role="tabpanel" class="tab-pane" id="publicRooms">
+                    <h3>Public Rooms</h3>
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4" ng-repeat="room in Session.rooms">
+                            <div class="thumbnail">
+                                <a href=""  ng-click="CommandManager.execute('startRoomSession',room)">
+                                    <img src="http://www.joomlaworks.net/images/demos/galleries/abstract/7.jpg" alt="...">
+                                    <div class="caption">
+                                        <h3>Room name: {{ room.name }}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Private Rooms Panel -->
+                <div role="tabpanel" class="tab-pane" id="privateRooms">
+                    <h3>Private Rooms</h3>
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4" ng-repeat="invitation in Session.chats">
+                            <div class="thumbnail">
+                                <img src="http://www.v3.co.uk/IMG/542/225542/fibre-broadband-image-540x334.jpg" alt="...">
+                                <div class="caption">
+                                    <h3>Conversation with {{ invitation.receiver.login }}</h3>
+                                    <p>
+                                        <a class="btn btn-success" role="button" ng-click="CommandManager.execute('startChatSession',invitation)">Enter</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Invitations Panel -->
+                <div role="tabpanel" class="tab-pane" id="invitations">
+                    <h3>Invitations to Rooms</h3>
+                    
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4" ng-repeat="invitation in Session.invitations" ng-controller="InvitationController">
+                            <div class="thumbnail">
+                                <img src="http://www.gettyimages.co.uk/gi-resources/images/Homepage/Category-Creative/UK/UK_Creative_462809583.jpg" alt="...">
+                                <div class="caption">
+                                    <h3>Invitation from {{ invitation.sender.login }}</h3>
+                                    <p>State: {{ invitation.state }}</p>
+                                    <p>
+                                        <a class="btn btn-success" role="button" ng-click="CommandManager.execute('acceptInvitation',invitation)" ng-show="isPending">Accept</a>
+                                        <a class="btn btn-danger" role="button" ng-click="CommandManager.execute('rejectInvitation',invitation)" ng-show="isPending">Decline</a>
+                                        <a class="btn btn-success" role="button" ng-click="CommandManager.execute('startChatSession',invitation)" ng-show="isAccepted">Enter</a>
+                                        <a class="btn btn-danger" role="button" ng-show="isRejected">Delete</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

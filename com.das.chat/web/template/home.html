@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-md-4 col-md-offset-7">
+            <h3>Sign Up</h3>
+            <form>
+                <div class="form-group">
+                  <label>Login</label>
+                  <input type="text" class="form-control" placeholder="Login" ng-model="person.login">
+                </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" class="form-control" placeholder="Password" ng-model="person.password">
+                </div>
+                <button type="submit" class="btn btn-success" ng-click="CommandManager.execute('register',person)">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>
+

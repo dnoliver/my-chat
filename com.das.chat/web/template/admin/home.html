@@ -1,0 +1,209 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="page-header">
+                <h1>Home <small>Administrator</small></h1>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pills Menu -->
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="nav nav-pills" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="" data-target="#profiles" aria-controls="profiles" role="tab" data-toggle="pill">Profiles</a>
+                </li>
+                <li role="presentation">
+                    <a href="" data-target="#rooms" aria-controls="rooms" role="tab" data-toggle="pill">Rooms</a>
+                </li>
+                <li role="presentation">
+                    <a href="" data-target="#messages" aria-controls="messages" role="tab" data-toggle="pill">Messages</a>
+                </li>
+                <li role="presentation">
+                    <a href="" data-target="#invitations" aria-controls="invitations" role="tab" data-toggle="pill">Invitations</a>
+                </li>
+                <li role="presentation">
+                    <a href="" data-target="#userslogins" aria-controls="profiles" role="tab" data-toggle="pill">Users Logins</a>
+                </li>
+                <li role="presentation">
+                    <a href="" data-target="#usersaccess" aria-controls="profiles" role="tab" data-toggle="pill">Users Access</a>
+                </li>
+                <li role="presentation">
+                    <a href="" data-target="#roomsaccesspolicy" aria-controls="roomsaccesspolicy" role="tab" data-toggle="pill">Rooms Access Policy</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <br>
+    
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="tab-content">
+                
+                <!-- profiles Panel -->
+                <div role="tabpanel" class="tab-pane active" id="profiles">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>login</th>
+                                <th>password</th>
+                                <th>type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="p in AdminSession.profiles">
+                                <td>{{ p.id }}</td>
+                                <td>{{ p.login }}</td>
+                                <td>{{ p.password }}</td>
+                                <td>{{ p.type }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- rooms  Panel -->
+                <div role="tabpanel" class="tab-pane" id="rooms">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>name</th>
+                                <th>type</th>
+                                <th>owner</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in AdminSession.rooms" ng-click="CommandManager.execute('startRoomSession',r)">
+                                <td>{{ r.id }}</td>
+                                <td>{{ r.name }}</td>
+                                <td>{{ r.type }}</td>
+                                <td>{{ r.owner.id }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- messages  Panel -->
+                <div role="tabpanel" class="tab-pane" id="messages">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>room</th>
+                                <th>owner</th>
+                                <th>datetimeOfCreation</th>
+                                <th>body</th>
+                                <th>state</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="m in AdminSession.messages">
+                                <td>{{ m.id }}</td>
+                                <td>{{ m.room.id }}</td>
+                                <td>{{ m.owner.id }}</td>
+                                <td>{{ m.datetimeOfCreation }}</td>
+                                <td>{{ m.body }}</td>
+                                <td>{{ m.state }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- invitations Panel -->
+                <div role="tabpanel" class="tab-pane" id="invitations">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>room</th>
+                                <th>sender</th>
+                                <th>receiver</th>
+                                <th>state</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="i in AdminSession.invitations">
+                                <td>{{ i.id }}</td>
+                                <td>{{ i.room.id }}</td>
+                                <td>{{ i.sender.id }}</td>
+                                <td>{{ i.receiver.id }}</td>
+                                <td>{{ i.state }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- users logins Panel -->
+                <div role="tabpanel" class="tab-pane" id="userslogins">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>profile</th>
+                                <th>datetimeOfAccessStart</th>
+                                <th>datetimeOfAccessEnd</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="u in AdminSession.userslogins">
+                                <td>{{ u.id }}</td>
+                                <td>{{ u.profile.id }}</td>
+                                <td>{{ u.datetimeOfAccessStart }}</td>
+                                <td>{{ u.datetimeOfAccessEnd }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- users access Panel -->
+                <div role="tabpanel" class="tab-pane" id="usersaccess">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>room</th>
+                                <th>profile</th>
+                                <th>datetimeOfAccessStart</th>
+                                <th>datetimeOfAccessEnd</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="u in AdminSession.usersaccess">
+                                <td>{{ u.id }}</td>
+                                <td>{{ u.room.id }}</td>
+                                <td>{{ u.profile.id }}</td>
+                                <td>{{ u.datetimeOfAccessStart }}</td>
+                                <td>{{ u.datetimeOfAccessEnd }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- rooms access policy Panel -->
+                <div role="tabpanel" class="tab-pane" id="roomsaccesspolicy">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>room</th>
+                                <th>profile</th>
+                                <th>policy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in AdminSession.roomsaccesspolicy">
+                                <td>{{ r.id }}</td>
+                                <td>{{ r.room.id }}</td>
+                                <td>{{ r.profile.id }}</td>
+                                <td>{{ r.policy }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

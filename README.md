@@ -74,3 +74,37 @@ teóricas sobre la arquitectura utilizada.
 Posteriormente, una vez finalizada la revisión del software, se asignará una tarea de modificación sobre el 
 programa o la definición de un caso a resolver en el momento que puedo o no haber sido contemplado en el caso de 
 estudio y puedo o no corresponderse con el proyecto.
+
+## Tests
+
+1. Registro de usuario
+  1. registrar usuario dnoliver, dnoliver
+  2. desloguearse de la aplicacion
+  
+2. Ingresar con usuario dnoliver
+  1. ingresar a sala public
+  3. postear un mensaje
+  4. salir de la sala public
+  5. desloguearse de la aplicacion
+  
+3. Ingresar con usuario dnoliver
+  1. ingresar a sala publica
+  2. en otra ventana, ingresar con usuario user
+  3. invitar a dnoliver a sala privada
+  4. con dnoliver, salir de sala publica y aceptar invitacion
+  5. postear un mensaje
+  6. salir de la sala
+  7. con user, salir de la sala
+  8. con user, desloguearse de la aplicacion
+  
+4. Ingresar con usuario admin
+  1. ingresar a sala publica
+  2. borrar un mensaje
+  3. en otroa ventana, ingresar con usuario user
+  4. con admin, expulsar a user de la sala
+  5. salir de la sala publica
+  6. salir de la aplicacion
+  
+5. Ingresar con user
+  1. esperar hasta que la session expire
+   

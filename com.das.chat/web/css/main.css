@@ -1,0 +1,11 @@
+/*
+html { 
+    height:100%;
+}
+body { 
+    min-height:100%;
+}
+*/
+body { padding-top: 70px; padding-bottom: 70px; }
+
+.message-list { overflow-y: scroll; }
